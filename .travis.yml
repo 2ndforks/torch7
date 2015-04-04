@@ -8,6 +8,14 @@ before_script:
 - sudo apt-get install -qq gfortran  >/dev/null 2>&1
 - sudo apt-get install -qq  gcc-multilib gfortran-multilib  >/dev/null 2>&1
 - sudo apt-get install -qq liblapack-dev >/dev/null 2>&1
-- curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | sudo bash 
-script: ls -alh
-after_script: luajit -ltorch -e "torch.test()"
+- curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | sudo bash 2>&1 >/dev/null
+- git clone https://github.com/torch/distro.git distro --recursive
+- cd distro && git submodule update --init --recursive
+- mkdir build && cd build
+- CMAKE_LIBRARY_PATH=/opt/OpenBLAS/include:/opt/OpenBLAS/lib:$CMAKE_LIBRARY_PATH cmake .. -DCMAKE_INSTALL_PREFIX="${PREFIX}" -DCMAKE_BUILD_TYPE=Release -DWITH_LUAJIT21=ON
+- make && make install
+- cd .. # in distro
+- ./distro/install/bin/luarocks install torch
+- cd .. # in local folder
+script: ./distro/install/bin/luarocks make rocks/torch-scm-1.rockspec
+after_script: ./distro/install/bin/luajit -ltorch -e "torch.test()"
