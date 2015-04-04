@@ -9,5 +9,5 @@ before_script:
 - sudo apt-get install -qq  gcc-multilib gfortran-multilib  >/dev/null 2>&1
 - sudo apt-get install -qq liblapack-dev >/dev/null 2>&1
 - curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | sudo bash 
-script: ls
+script: ls -alh
 after_script: luajit -ltorch -e "torch.test()"
