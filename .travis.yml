@@ -2,6 +2,7 @@ language: c
 compiler:
   - gcc
   - clang
+cache: apt
 before_script: 
 - sudo apt-get update -qq >/dev/null 2>&1
 - sudo apt-get install -qq gfortran  >/dev/null 2>&1
