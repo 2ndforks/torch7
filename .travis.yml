@@ -3,7 +3,6 @@ compiler:
   - gcc
   - clang
 before_script: 
-- ls
 - sudo apt-get update -qq >/dev/null 2>&1
 - sudo apt-get install -qq gfortran  >/dev/null 2>&1
 - sudo apt-get install -qq  gcc-multilib gfortran-multilib  >/dev/null 2>&1
@@ -16,7 +15,7 @@ before_script:
 - CMAKE_LIBRARY_PATH=/opt/OpenBLAS/include:/opt/OpenBLAS/lib:$CMAKE_LIBRARY_PATH cmake .. -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" -DCMAKE_BUILD_TYPE=Release -DWITH_LUAJIT21=ON
 - make && make install
 - cd .. # in distro
-- ./distro/install/bin/luarocks install torch
+- ${INSTALL_PREFIX}/bin/luarocks install torch
 - cd .. # in local folder
-script: ./distro/install/bin/luarocks make rocks/torch-scm-1.rockspec
-after_script: ./distro/install/bin/luajit -ltorch -e "torch.test()"
+script: ${INSTALL_PREFIX}/bin/luarocks make rocks/torch-scm-1.rockspec
+after_script: ${INSTALL_PREFIX}/bin/luajit -ltorch -e "torch.test()"
