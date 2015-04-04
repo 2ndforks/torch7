@@ -19,4 +19,4 @@ before_script:
 - cd .. # in local folder
 - export LD_LIBRARY_PATH=${INSTALL_PREFIX}/lib:$LD_LIBRARY_PATH
 script: ${INSTALL_PREFIX}/bin/luarocks make rocks/torch-scm-1.rockspec
-after_script: ${INSTALL_PREFIX}/bin/luajit -ltorch -e "t=torch.test(); if #t > 0 then os.exit(1)"
+after_script: ${INSTALL_PREFIX}/bin/luajit -ltorch -e "t=torch.test(); if #t > 0 then os.exit(1) end"
