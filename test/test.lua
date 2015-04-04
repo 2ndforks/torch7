@@ -84,6 +84,7 @@ end
 function torchtest.sinh()
    local f = loadstring(string.gsub(genericSingleOpTest, 'functionname', 'sinh'))
    local maxerrc, maxerrnc = f()
+   mytester:assert(false, 'Intentional error for travis')
    mytester:assertlt(maxerrc, precision, 'error in torch.functionname - contiguous')
    mytester:assertlt(maxerrnc, precision, 'error in torch.functionname - non-contiguous')
 end
