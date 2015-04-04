@@ -15,7 +15,6 @@ before_script:
 - CMAKE_LIBRARY_PATH=/opt/OpenBLAS/include:/opt/OpenBLAS/lib:$CMAKE_LIBRARY_PATH cmake .. -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" -DCMAKE_BUILD_TYPE=Release -DWITH_LUAJIT21=ON
 - make && make install
 - cd .. # in distro
-- ${INSTALL_PREFIX}/bin/luarocks install torch
 - cd .. # in local folder
 script: ${INSTALL_PREFIX}/bin/luarocks make rocks/torch-scm-1.rockspec
 after_script: ${INSTALL_PREFIX}/bin/luajit -ltorch -e "torch.test()"
